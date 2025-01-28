@@ -3,7 +3,11 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Pz1
+  - Pz2
+  - Bullet
+  - Gravity
   layers:
   - Default
   - TransparentFX
