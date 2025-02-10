@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Pz4 : MonoBehaviour
+public class MapRotate3 : MonoBehaviour
 {
     public Transform targetObject;  // วัตถุเป้าหมายที่จะหมุน
     private bool rotateToTarget = false;
@@ -17,13 +17,13 @@ public class Pz4 : MonoBehaviour
             {
                 // ตั้งค่าเป้าหมายการหมุนและตำแหน่ง Y
                 targetRotation = Quaternion.Euler(-180f, targetObject.rotation.eulerAngles.y, targetObject.rotation.eulerAngles.z);
-                targetPosition = new Vector3(targetObject.position.x, 15f, targetObject.position.z);
+                targetPosition = new Vector3(targetObject.position.x, 0f, targetObject.position.z);
 
                 rotateToTarget = true;
-                Debug.Log("Start rotating target object to -180 X and moving to Y = 17.5");
+                Debug.Log("Start rotating target object to 180 X and moving to Y = 17.5");
                 Destroy(collision.gameObject);
             }
-            
+
         }
     }
 
@@ -39,7 +39,7 @@ public class Pz4 : MonoBehaviour
 
             // ตรวจสอบว่าเป้าหมายการหมุนและตำแหน่งใกล้เคียงเป้าหมายแล้ว
             if (Quaternion.Angle(targetObject.rotation, targetRotation) < 0.1f &&
-                Mathf.Abs(targetObject.position.y - 15f) < 0.01f)
+                Mathf.Abs(targetObject.position.y - 0f) < 0.01f)
             {
                 targetObject.rotation = targetRotation;
                 targetObject.position = targetPosition;

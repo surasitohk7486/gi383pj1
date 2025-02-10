@@ -16,9 +16,6 @@ public class Pz2 : MonoBehaviour
             {
                 objectAnimator.SetBool("Pz2Sc", true);  // ตั้งค่า Bool "PzSc" เป็น true เพื่อเริ่มเล่นแอนิเมชัน
             }
-
-            // ทำลายกระสุน
-            Destroy(gameObject);
         }
     }
 }

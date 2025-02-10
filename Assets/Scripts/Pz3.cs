@@ -19,6 +19,7 @@ public class Pz3 : MonoBehaviour
                 }
             }
 
+            Destroy(collision.gameObject);
             // ทำลายกระสุน
             Destroy(gameObject);
         }
