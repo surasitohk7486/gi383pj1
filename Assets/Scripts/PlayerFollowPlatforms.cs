@@ -4,17 +4,18 @@ using UnityEngine;
 
 public class PlayerFollowPlatforms : MonoBehaviour
 {
-    private bool isOnPlatform = false;
-    private Transform platformTransform;
-    private Vector3 lastPlatformPosition;
+    private bool isOnPlatform = false; // เช็คว่า Player ยืนอยู่บนแพลตฟอร์มหรือไม่
+    private Transform platformTransform; // อ้างอิงถึงแพลตฟอร์ม
+    private Vector3 platformLastPosition; // ตำแหน่งสุดท้ายของแพลตฟอร์ม
 
     void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("MovingPlatform"))
         {
+            // เมื่อ Player เหยียบแพลตฟอร์ม
             isOnPlatform = true;
             platformTransform = collision.transform;
-            lastPlatformPosition = platformTransform.position;
+            platformLastPosition = platformTransform.position;
         }
     }
 
@@ -22,6 +23,7 @@ public class PlayerFollowPlatforms : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("MovingPlatform"))
         {
+            // เมื่อ Player ออกจากแพลตฟอร์ม
             isOnPlatform = false;
             platformTransform = null;
         }
@@ -32,13 +34,13 @@ public class PlayerFollowPlatforms : MonoBehaviour
         if (isOnPlatform && platformTransform != null)
         {
             // คำนวณการเคลื่อนที่ของแพลตฟอร์ม
-            Vector3 platformMovement = platformTransform.position - lastPlatformPosition;
+            Vector3 platformMovement = platformTransform.position - platformLastPosition;
 
-            // ให้ Player ติดตามแพลตฟอร์ม
+            // ให้ Player เคลื่อนที่ตามแพลตฟอร์ม
             transform.position += platformMovement;
 
-            // อัปเดตตำแหน่งล่าสุดของแพลตฟอร์ม
-            lastPlatformPosition = platformTransform.position;
+            // อัปเดตตำแหน่งสุดท้ายของแพลตฟอร์ม
+            platformLastPosition = platformTransform.position;
         }
     }
 }
