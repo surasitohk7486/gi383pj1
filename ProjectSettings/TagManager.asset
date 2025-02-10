@@ -8,6 +8,7 @@ TagManager:
   - Pz2
   - Bullet
   - Gravity
+  - MovingPlatform
   layers:
   - Default
   - TransparentFX
