@@ -20,17 +20,23 @@ namespace IndieMarc.Platformer
         public KeyCode jump_key;
         public KeyCode action_key;
 
+        public AudioClip walkClip;  // ลากไฟล์เสียงเดินมาใส่ใน Inspector
+        public AudioClip jumpClip;  // ลากไฟล์เสียงกระโดดมาใส่ใน Inspector
+
         private Vector2 move = Vector2.zero;
         private bool jump_press = false;
         private bool jump_hold = false;
         private bool action_press = false;
         private bool action_hold = false;
 
+        private AudioSource audioSource;
+
         private static Dictionary<int, PlayerControls> controls = new Dictionary<int, PlayerControls>();
 
         void Awake()
         {
             controls[player_id] = this;
+            audioSource = GetComponent<AudioSource>();
         }
 
         void OnDestroy()
@@ -40,36 +46,56 @@ namespace IndieMarc.Platformer
 
         void Update()
         {
-
             move = Vector2.zero;
             jump_hold = false;
             jump_press = false;
             action_hold = false;
             action_press = false;
 
+            bool isWalking = false;
+
             if (Input.GetKey(left_key))
+            {
                 move += -Vector2.right;
+                isWalking = true;
+            }
             if (Input.GetKey(right_key))
+            {
                 move += Vector2.right;
-            if (Input.GetKey(up_key))
-                move += Vector2.up;
-            if (Input.GetKey(down_key))
-                move += -Vector2.up;
-            if (Input.GetKey(jump_key))
-                jump_hold = true;
+                isWalking = true;
+            }
+
+            if (Input.GetKey(up_key)) move += Vector2.up;
+            if (Input.GetKey(down_key)) move += -Vector2.up;
+
+            if (Input.GetKey(jump_key)) jump_hold = true;
             if (Input.GetKeyDown(jump_key))
+            {
                 jump_press = true;
-            if (Input.GetKey(action_key))
-                action_hold = true;
-            if (Input.GetKeyDown(action_key))
-                action_press = true;
+                PlaySound(jumpClip); // เล่นเสียงกระโดด
+            }
+
+            if (Input.GetKey(action_key)) action_hold = true;
+            if (Input.GetKeyDown(action_key)) action_press = true;
 
             float move_length = Mathf.Min(move.magnitude, 1f);
             move = move.normalized * move_length;
+
+            // เล่นเสียงเดิน
+            if (isWalking && !audioSource.isPlaying)
+            {
+                PlaySound(walkClip);
+            }
         }
 
+        private void PlaySound(AudioClip clip)
+        {
+            if (clip != null && audioSource != null)
+            {
+                audioSource.PlayOneShot(clip);
+            }
+        }
 
-        //------ These functions should be called from the Update function, not FixedUpdate
         public Vector2 GetMove()
         {
             return move;
@@ -95,8 +121,6 @@ namespace IndieMarc.Platformer
             return action_hold;
         }
 
-        //-----------
-
         public static PlayerControls Get(int player_id)
         {
             foreach (PlayerControls control in GetAll())
@@ -115,7 +139,5 @@ namespace IndieMarc.Platformer
             controls.Values.CopyTo(list, 0);
             return list;
         }
-
     }
-
 }
