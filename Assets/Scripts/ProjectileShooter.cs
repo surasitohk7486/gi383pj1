@@ -15,6 +15,9 @@ public class ProjectileShooter : MonoBehaviour
     [Header("UI Settings")]
     public Slider powerSlider;
 
+    [Header("Animation Settings")]
+    public Animator animator; // Drag your Animator here in the Inspector
+
     private float currentChargeTime;
     private bool isCharging;
     private SpriteRenderer playerSprite;
@@ -46,42 +49,40 @@ public class ProjectileShooter : MonoBehaviour
 
     void HandleCharging()
     {
-        // Start charging when mouse button is pressed
         if (Input.GetMouseButtonDown(0))
         {
             isCharging = true;
             currentChargeTime = 0f;
 
             // Show slider when charging starts
-            if (powerSlider != null)
-            {
-                powerSlider.gameObject.SetActive(true);
-            }
+            if (powerSlider != null) powerSlider.gameObject.SetActive(true);
+
+            // Play charge animation
+            if (animator != null) animator.SetBool("IsCharging", true);
         }
 
-        // Continue charging while mouse button is held
         if (isCharging && Input.GetMouseButton(0))
         {
             currentChargeTime += Time.deltaTime;
             float power = Mathf.Lerp(minShootForce, maxShootForce, currentChargeTime / chargeTime);
             power = Mathf.Clamp(power, minShootForce, maxShootForce);
 
-            if (powerSlider != null)
-            {
-                powerSlider.value = power;
-            }
+            if (powerSlider != null) powerSlider.value = power;
         }
 
-        // Release to shoot
         if (Input.GetMouseButtonUp(0) && isCharging)
         {
             ShootProjectile();
             isCharging = false;
 
-            // Hide slider when charging ends
-            if (powerSlider != null)
+            // Hide slider
+            if (powerSlider != null) powerSlider.gameObject.SetActive(false);
+
+            // Stop charging animation and play shoot animation
+            if (animator != null)
             {
-                powerSlider.gameObject.SetActive(false);
+                animator.SetBool("IsCharging", false);
+                animator.SetTrigger("Shoot");
             }
         }
     }
@@ -109,7 +110,7 @@ public class ProjectileShooter : MonoBehaviour
                 power = Mathf.Clamp(power, minShootForce, maxShootForce);
 
                 Vector2 shootDirection = (playerSprite.flipX ? Vector2.left : Vector2.right) + Vector2.up * 0.3f;
-                shootDirection.Normalize(); // Normalize to maintain consistent force
+                shootDirection.Normalize();
                 rb.AddForce(shootDirection * power, ForceMode2D.Impulse);
             }
         }
