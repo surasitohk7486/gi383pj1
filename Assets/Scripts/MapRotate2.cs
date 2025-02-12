@@ -14,6 +14,8 @@ public class MapRotate2 : MonoBehaviour
 
     [SerializeField] private GameObject wall;
     [SerializeField] private GameObject artifact;
+    [SerializeField] private GameObject dialogue3;
+    [SerializeField] private GameObject dialogue4;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -29,6 +31,8 @@ public class MapRotate2 : MonoBehaviour
         if (canRotate && Input.GetMouseButtonDown(1) && count == 0)
         {
             artifact.SetActive(true);
+            dialogue3.SetActive(true);
+            dialogue4.SetActive(true);
             Destroy(wall);
             Destroy(gameObject);
             

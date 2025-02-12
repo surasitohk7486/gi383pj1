@@ -885,7 +885,7 @@ PlayerSettings:
   m_RenderingPath: 1
   m_MobileRenderingPath: 1
   metroPackageName: gi383pj1
-  metroPackageVersion: 
+  metroPackageVersion: 1.0.0.0
   metroCertificatePath: 
   metroCertificatePassword: 
   metroCertificateSubject: 
@@ -893,7 +893,7 @@ PlayerSettings:
   metroCertificateNotAfter: 0000000000000000
   metroApplicationDescription: gi383pj1
   wsaImages: {}
-  metroTileShortName: 
+  metroTileShortName: gi383_project1
   metroTileShowName: 0
   metroMediumTileShowName: 0
   metroLargeTileShowName: 0

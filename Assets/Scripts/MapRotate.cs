@@ -7,6 +7,7 @@ public class MapRotate : MonoBehaviour
     public Transform targetObject;  // วัตถุเป้าหมายที่จะหมุน
     private bool rotateToTarget = false;
     [SerializeField] private Quaternion targetRotation;
+    [SerializeField] private GameObject dialogue2;
     private Vector3 targetPosition;
 
     int count = 0;
@@ -52,6 +53,7 @@ public class MapRotate : MonoBehaviour
                 rotateToTarget = false;
                 Debug.Log("Target rotation and position complete");
                 
+                dialogue2.SetActive(true);
                 Destroy(gameObject);
             }
         }
