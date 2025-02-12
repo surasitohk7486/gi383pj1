@@ -20,8 +20,8 @@ namespace IndieMarc.Platformer
         public KeyCode jump_key;
         public KeyCode action_key;
 
-        public AudioClip walkClip;  // ลากไฟล์เสียงเดินมาใส่ใน Inspector
-        public AudioClip jumpClip;  // ลากไฟล์เสียงกระโดดมาใส่ใน Inspector
+        public AudioSource walkClip;  // ลากไฟล์เสียงเดินมาใส่ใน Inspector
+        public AudioSource jumpClip;  // ลากไฟล์เสียงกระโดดมาใส่ใน Inspector
 
         private Vector2 move = Vector2.zero;
         private bool jump_press = false;
@@ -72,7 +72,7 @@ namespace IndieMarc.Platformer
             if (Input.GetKeyDown(jump_key))
             {
                 jump_press = true;
-                PlaySound(jumpClip); // เล่นเสียงกระโดด
+                jumpClip.Play(); // เล่นเสียงกระโดด
             }
 
             if (Input.GetKey(action_key)) action_hold = true;
@@ -84,7 +84,7 @@ namespace IndieMarc.Platformer
             // เล่นเสียงเดิน
             if (isWalking && !audioSource.isPlaying)
             {
-                PlaySound(walkClip);
+                walkClip.Play();
             }
         }
 
