@@ -10,6 +10,7 @@ public class MapRotate2 : MonoBehaviour
     private Vector3 targetPosition;
     private bool rotateToTarget = false;
 
+    [SerializeField] GameObject rClickText;
     
 
     int count = 0;
@@ -24,7 +25,16 @@ public class MapRotate2 : MonoBehaviour
         if (collision.gameObject.CompareTag("Player") && count == 0)
         {
             Debug.Log("Touch");
+            rClickText.SetActive(true);
             canRotate = true; // อนุญาตให้ตรวจสอบการคลิกเมาส์
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if(collision.gameObject.CompareTag("Player"))
+        {
+            rClickText.SetActive(false);
         }
     }
 
