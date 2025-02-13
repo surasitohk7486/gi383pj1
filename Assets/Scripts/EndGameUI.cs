@@ -13,6 +13,7 @@ public class EndGameUI : MonoBehaviour
     [SerializeField] private GameObject dialogueText;
     [SerializeField] private GameObject lives;
     [SerializeField] private GameObject leave;
+    [SerializeField] private GameObject leaveBox;
 
     public float displayTime = 5f;
 
@@ -40,6 +41,7 @@ public class EndGameUI : MonoBehaviour
     {
         dialogueBox.SetActive(true);
         dialogueText.SetActive(true);
+        leaveBox.SetActive(true);
         StartCoroutine(HideDialogueAfterTime());
     }
 

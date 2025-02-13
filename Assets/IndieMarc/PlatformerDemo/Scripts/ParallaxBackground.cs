@@ -12,8 +12,8 @@ namespace IndieMarc.Platformer
 
         public float speed;
 
-        private Camera main_camera;
-        private Renderer render;
+        [SerializeField] private Camera main_camera;
+        [SerializeField] private Renderer render;
 
         void Start()
         {

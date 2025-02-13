@@ -10,6 +10,8 @@ public class MapRotate2 : MonoBehaviour
     private Vector3 targetPosition;
     private bool rotateToTarget = false;
 
+    
+
     int count = 0;
 
     [SerializeField] private GameObject wall;

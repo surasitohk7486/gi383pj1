@@ -9,6 +9,8 @@ public class Pz4 : MonoBehaviour
     [SerializeField] private Quaternion targetRotation;
     private Vector3 targetPosition;
 
+    [SerializeField] AudioSource sound;
+
     void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Bullet"))
@@ -21,6 +23,7 @@ public class Pz4 : MonoBehaviour
 
                 rotateToTarget = true;
                 Debug.Log("Start rotating target object to -180 X and moving to Y = 17.5");
+                sound.Play();
                 Destroy(collision.gameObject);
             }
             

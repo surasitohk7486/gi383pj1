@@ -8,11 +8,14 @@ public class MapRotate : MonoBehaviour
     private bool rotateToTarget = false;
     [SerializeField] private Quaternion targetRotation;
     [SerializeField] private GameObject dialogue2;
+
+    [SerializeField] private GameObject change2rd;
     private Vector3 targetPosition;
 
     int count = 0;
 
     [SerializeField] private GameObject wall;
+    [SerializeField] AudioSource sound;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -28,9 +31,16 @@ public class MapRotate : MonoBehaviour
                 Debug.Log("Start rotating target object to -180 X and moving to Y = 25");
                 wall.SetActive(true);
                 count++;
+
+                sound.Play();
             }
 
         }
+    }
+
+    private void Start()
+    {
+        change2rd.SetActive(false);
     }
 
     void Update()
@@ -52,7 +62,8 @@ public class MapRotate : MonoBehaviour
                 targetObject.position = targetPosition;
                 rotateToTarget = false;
                 Debug.Log("Target rotation and position complete");
-                
+
+                change2rd.SetActive(true);
                 dialogue2.SetActive(true);
                 Destroy(gameObject);
             }
